@@ -1,9 +1,24 @@
+using ECommerce.Application.Abstract;
+using ECommerce.Application.Concrete;
+using ECommerce.DataAcces.Context;
+using ECommerce.DataAccess.Abstract;
+using ECommerce.DataAccess.Concrete.EFEntityFramework;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSession();
+builder.Services.AddScoped<ICategoryDal, EFCategoryDal>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+
+var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<NorthWindDbContext>(opt =>
+{
+    opt.UseSqlServer(conn);
+});
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
