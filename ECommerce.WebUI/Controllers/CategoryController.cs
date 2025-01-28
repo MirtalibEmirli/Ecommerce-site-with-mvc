@@ -11,4 +11,7 @@ public class CategoryController(ICategoryService categoryService) : Controller
         var category = _categoryService.GetAll();
         return Json(category);
     }
-}
+} //Request ilk once gedir Service layer
+  //2.DataAccesLayer
+  //3.
+  //4.

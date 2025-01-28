@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.DataAccess.Concrete.EFEntityFramework;
 
-public class EFProductDal:EFEntityRepositoryBase<Product,NorthWindDbContext>,IProductDal
+public class EFProductDal:EFEntityRepositoryBase<Product, ECommerceDb>,IProductDal
 {
 
 }

@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.DataAcces.Context;
 
-public partial class NorthWindDbContext : DbContext
+public partial class ECommerceDb : DbContext
 {
-    public NorthWindDbContext()
+    public ECommerceDb()
     {
     }
-
-    public NorthWindDbContext(DbContextOptions<NorthWindDbContext> options)
+    //northwindden deysilib
+    public ECommerceDb(DbContextOptions<ECommerceDb> options)
         : base(options)
     {
     }
