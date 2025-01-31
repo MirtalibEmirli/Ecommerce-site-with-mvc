@@ -1,29 +1,46 @@
 ﻿using ECommerce.Application.Abstract;
+using ECommerce.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECommerce.WebUI.Controllers
+namespace ECommerce.WebUI.Controllers;
+
+public class ProductController(IProductService prouductService, ICategoryService categoryService) : Controller
 {
-    public class ProductController(IProductService prouductService) : Controller
+    private readonly IProductService _productService = prouductService;
+    private readonly ICategoryService _categoryService = categoryService;
+
+    public IActionResult Index(int page = 1, int categoryId = 0)
     {
-        private readonly IProductService _prouductService= prouductService;
-             
-       
-        public IActionResult Index(int page=1 ,int categoryId=0)
+        int pageSize = 10;
+        var products = _productService.GetAllByCategory(categoryId);
+        //bax
+        var pagedProducts = products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+        var model = new ProductListViewModel
         {
-            int pageSize = 10;
-            var products = _prouductService.GetAllByCategory(categoryId);
-            //bax
-            var pagedProducts = products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            CurrentCategory = categoryId,
+            PageCount = (int)Math.Ceiling(products.Count / (double)(pageSize)),
+            PageSize = pageSize,
+            CurrentPage = page,
+            Products = pagedProducts
 
-            var model = new ProductListViewModel{
-                 CurrentCategory=categoryId,
-                 PageCount=(int)Math.Ceiling(products.Count/(double)(pageSize)),
-                 PageSize=pageSize,
-                 CurrentPage=page,
-                 Products= pagedProducts
-
-            };
-            return View(model);
-        }
+        };
+        return View(model);
     }
+    ///abstractla interface ferqi
+    [HttpGet]
+    public IActionResult Add()
+    {
+        var model = new ProductAddViewModel();
+        model.Product = new Product();
+        model.Categories = _categoryService.GetAll();
+        return View(model);
+    }
+    [HttpPost]
+    public  IActionResult Add(ProductAddViewModel model)
+    {
+        _productService.Add(model.Product);
+        return RedirectToAction("Index");
+    }
+
 }
