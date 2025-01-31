@@ -12,10 +12,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.AddScoped<ICategoryDal, EFCategoryDal>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-
+builder.Services.AddScoped<IProductDal,EFProductDal>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var conn = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<NorthWindDbContext>(opt =>
+builder.Services.AddDbContext<ECommerceDb>(opt =>
 {
     opt.UseSqlServer(conn);
 });

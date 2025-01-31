@@ -25,7 +25,7 @@ namespace ECommerce.Repository.DataAcces.EntityFrameWorkAcces
             using var context = new TContext();
             var deletedEntity = context.Entry(entity);
             deletedEntity.State = EntityState.Deleted;
-            //context.Remove(deletedEntity);
+            //context.Remove(entity);
             context.SaveChanges();
         }
 
@@ -48,7 +48,7 @@ namespace ECommerce.Repository.DataAcces.EntityFrameWorkAcces
             using var context = new TContext();
             var upDatedEntity = context.Entry(entity);
             upDatedEntity.State = EntityState.Modified;
-            //context.Update(upDatedEntity);
+            //context.Update(entity);
             context.SaveChanges();
         }
     }

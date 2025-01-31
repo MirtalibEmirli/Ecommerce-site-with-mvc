@@ -11,15 +11,16 @@ namespace ECommerce.Application.Concrete;
 
 public class CategoryService : ICategoryService
 {
-    private readonly ICategoryDal _categoryDal;
+    private readonly ICategoryDal _categoryDal;//dal
 
     public CategoryService(ICategoryDal categoryDal)
     {
         _categoryDal = categoryDal;
     }
-
+   
     public List<Category> GetAll()
     {
         return _categoryDal.GetList();
+        //burda bizim buissnes logic comes and we do it but we need acces that's why we send request to the DataAccesLayer,indi request is going to Dal
     }
 }
